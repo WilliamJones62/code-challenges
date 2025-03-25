@@ -8,24 +8,10 @@ def arith_geo(arr)
 end
 
 def test_array(arr, operator)
-  first = true
-  constant = false
-  prev_num = 0
-  arr.each do |num|
-    if first
-      first = false
-    # this is the first number in the array
-    elsif !constant
-      # this is the second number in the array
-      constant = return_value(num, prev_num, operator)
-    else
-      difference = return_value(num, prev_num, operator)
-      return false if difference != constant
-
-      # if the constant changes then this is not a valid sequence
-
-    end
-    prev_num = num
+  constant = return_value(arr[1], arr[0], operator)
+  (2..(arr.length - 1)).each do |i|
+    difference = return_value(arr[i], arr[i - 1], operator)
+    return false if difference != constant
   end
   true
 end

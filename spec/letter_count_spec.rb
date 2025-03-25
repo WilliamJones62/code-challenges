@@ -2,8 +2,8 @@
 
 require 'letter_count'
 
-# Divide the arguments, return the result with properly formatted commas.
-# The result should have 4 significant digits after the decimal point.
+# Return the first word with the greatest number of repeated letters.
+# Return '-1' if none of the words have a repeated letter.
 
 describe 'letter_count' do
   it "should return 'Hello' for 'Hello apple pie' " do
