@@ -1,21 +1,25 @@
 # frozen_string_literal: true
 
+LOWERCASE = %w[a b c d e f g h i j k l m n o p q r s t
+               u v w x y z].freeze
+UPPERCASE = %w[A B C D E F G H I J K L M N O P Q R S T
+               U V W X Y Z].freeze
+
 def caesar(string, count)
-  lower_case = %w[a b c d e f g h i j k l m n o p q r s t
-                  u v w x y z]
-  upper_case = %w[A B C D E F G H I J K L M N O P Q R S T
-                  U V W X Y Z]
   out_arr = []
   string.chars.each do |char|
-    if lower_case.include?(char)
-      out_arr.push(char_trans(char, lower_case, count))
-    elsif upper_case.include?(char)
-      out_arr.push(char_trans(char, upper_case, count))
-    else
-      out_arr.push(char)
-    end
+    out_arr.push(convert_char(char, count))
   end
   out_arr.join
+end
+
+def convert_char(char, count)
+  if LOWERCASE.include?(char)
+    char = char_trans(char, LOWERCASE, count)
+  elsif UPPERCASE.include?(char)
+    char = char_trans(char, UPPERCASE, count)
+  end
+  char
 end
 
 def char_trans(char, alpha_case, count)
