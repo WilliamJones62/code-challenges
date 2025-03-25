@@ -1,21 +1,27 @@
 # frozen_string_literal: true
 
+CLOSEBRACKETS = ['}', ']', ')'].freeze
+OPENBRACKETS = ['{', '[', '('].freeze
+
 def brackets(string)
-  close_brackets = ['}', ']', ')']
-  open_brackets = ['{', '[', '(']
   open_array = []
+  return 0 unless valid_brackets(string, open_array)
+
+  1
+end
+
+def valid_brackets(string, open_array)
   string.chars.each do |char|
-    if open_brackets.include?(char)
+    if OPENBRACKETS.include?(char)
       open_array.push(char)
-    elsif close_brackets.include?(char)
-      i = close_brackets.index(char)
-      return 0 unless open_array.last == open_brackets[i]
+    elsif CLOSEBRACKETS.include?(char)
+      return false unless open_array.last == OPENBRACKETS[CLOSEBRACKETS.index(char)]
 
       open_array.pop
 
     end
   end
-  return 0 if open_array.size.positive?
+  return false if open_array.size.positive?
 
-  1
+  true
 end
