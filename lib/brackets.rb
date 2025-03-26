@@ -15,7 +15,7 @@ def valid_brackets(string, open_array)
     if OPENBRACKETS.include?(char)
       open_array.push(char)
     elsif CLOSEBRACKETS.include?(char)
-      return false unless open_array.last == OPENBRACKETS[CLOSEBRACKETS.index(char)]
+      return false unless open_array.length.positive? && open_array.last == OPENBRACKETS[CLOSEBRACKETS.index(char)]
 
       open_array.pop
 
