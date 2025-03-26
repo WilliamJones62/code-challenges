@@ -31,7 +31,7 @@ describe 'brackets' do
   it 'returns 0 if the brackets do not match' do
     expect(brackets('(coder byte}')).to eq(0)
   end
-  
+
   it 'returns 1 if the brackets match' do
     expect(brackets('')).to eq(1)
   end
