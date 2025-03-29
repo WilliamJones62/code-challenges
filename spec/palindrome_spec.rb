@@ -5,7 +5,7 @@ require 'palindrome'
 # If the string is a palindrome return the string 'true', else return the string 'false'.
 # Ignore any characters that are not alphabetic. Ignore case.
 
-describe 'number_search' do
+describe 'palindrome' do
   it "should return the string 'true' if the parameter is a palindrome." do
     expect(palindrome('Anne, I vote more cars race Rome-to-Vienna')).to eq('true')
   end

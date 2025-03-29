@@ -7,7 +7,7 @@ require 'overlapping_rectangles'
 # If the rectangles overlap return the size of overlapping area, else return
 # 'No overlap'
 
-describe 'number_search' do
+describe 'overlapping_rectangles' do
   it "should return 1 for '(3,0),(3,-2),(0,0),(0,-2),(2,-1),(3,-1),(2,3),(3,3)'" do
     expect(overlapping_rectangles('(3,0),(3,-2),(0,0),(0,-2),(2,-1),(3,-1),(2,3),(3,3)')).to eq(1)
   end
