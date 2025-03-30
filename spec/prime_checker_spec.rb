@@ -18,7 +18,11 @@ describe 'prime_checker' do
     expect(prime_checker(598)).to eq(1)
   end
 
-  it 'should output 0 for 256' do
-    expect(prime_checker(256)).to eq(0)
+  it 'should output 1 for 33' do
+    expect(prime_checker(33)).to eq(1)
+  end
+
+  it 'should output 0 for 486' do
+    expect(prime_checker(486)).to eq(0)
   end
 end

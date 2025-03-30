@@ -2,7 +2,7 @@
 
 def prime_checker(integer)
   integer_array = convert_int_to_arr(integer)
-  permutation_array = integer_array.permutation(integer_array.length).to_a
+  permutation_array = generate_permutations(integer_array)
   permutation_array.each do |arr|
     num = arr.join.to_i
 
@@ -17,6 +17,14 @@ def convert_int_to_arr(integer)
   char_array = integer.to_s.chars
   char_array.each { |x| array << x.to_i }
   array.reverse!
+end
+
+def generate_permutations(integer_array)
+  permutation_array = []
+  (1..integer_array.length).each do |length|
+    permutation_array += integer_array.permutation(length).to_a
+  end
+  permutation_array
 end
 
 def prime?(num)
