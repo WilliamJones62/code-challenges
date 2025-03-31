@@ -2,8 +2,7 @@
 
 require 'run_length'
 
-# Return 1 if any arrangement of a numbers digits would be a prime number.
-# Otherwise return 0.
+# Replace consecutively repeated characters with a count of how many times it is repeated
 
 describe 'run_length' do
   it "should return '3w2g1o2p' for 'wwwggopp" do
