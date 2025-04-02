@@ -3,16 +3,20 @@
 require 'str_contains_chars'
 
 # Return the string "true" if the first array string includes the second array string characters in sequence
-describe 'str_contains_chars' do
-  it "returns 'false' for string 'adz'" do
-    expect(str_contains_chars(%w[abcdefg adz])).to eq(false)
-  end
+describe StrContainsChars do
+  let(:sc) { described_class.new }
 
-  it "returns 'true' for string 'adf'" do
-    expect(str_contains_chars(%w[abcdefg adf])).to eq(true)
-  end
+  describe 'str_contains_chars' do
+    it "returns 'false' for strings 'abcdefg' 'adz'" do
+      expect(sc.str_contains_chars(%w[abcdefg adz])).to be(false)
+    end
 
-  it "returns 'true' for string 'adf'" do
-    expect(str_contains_chars(%w[aaabbbcccdefffg adf])).to eq(true)
+    it "returns 'true' for string 'abcdefg' 'adf'" do
+      expect(sc.str_contains_chars(%w[abcdefg adf])).to be(true)
+    end
+
+    it "returns 'true' for string 'aaabbbcccdefffg' 'adf'" do
+      expect(sc.str_contains_chars(%w[aaabbbcccdefffg adf])).to be(true)
+    end
   end
 end
