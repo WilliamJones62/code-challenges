@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This class contains string reduction logic
+# This class contains string scramble logic
 class StringScramble
   def string_scramble(string1, string2)
     hash1 = string1.chars.tally
