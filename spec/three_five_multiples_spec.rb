@@ -18,5 +18,9 @@ describe ThreeFiveMultiples do
     it 'returns 0 for 0' do
       expect(tf.three_five_multiples(1)).to eq(0)
     end
+
+    it 'returns 75 for 16' do
+      expect(tf.three_five_multiples(16)).to eq(75)
+    end
   end
 end
