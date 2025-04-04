@@ -25,5 +25,9 @@ describe ArrayCouples do
     it 'returns "true" for [6, 2, 5, 14, 2, 6, 14, 5]' do
       expect(ac.array_couples([6, 2, 5, 14, 2, 6, 14, 5])).to eq('true')
     end
+
+    it 'returns "3,3" for [2, 1, 1, 2, 3, 3]' do
+      expect(ac.array_couples([2, 1, 1, 2, 3, 3])).to eq('3,3')
+    end
   end
 end
