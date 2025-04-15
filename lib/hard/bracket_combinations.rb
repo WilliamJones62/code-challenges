@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This class contains breacket combinations logic
+# This class contains bracket combinations logic
 class BracketCombinations
   def bracket_combinations(integer)
     factorial(2 * integer) / (factorial(integer + 1) * factorial(integer))
