@@ -2,14 +2,18 @@
 
 # This class contains array jumping logic
 class ArrayJumping
+  @max_index = 0
   def array_jumping(array)
-    visited, array_length, max_index, jump_array, jump_count = initialize_variables(array)
+    visited, array_length, jump_array, jump_count = initialize_variables(array)
+    process_jumps(visited, array_length, jump_array, jump_count, array)
+  end
 
+  def process_jumps(visited, array_length, jump_array, jump_count, array)
     until jump_array.empty?
       next_jump_array = []
       jump_array.each do |j|
         next_moves = calculate_next_moves(j, array, array_length)
-        back_to_start, visited, next_jump_array = process_next_moves(next_moves, max_index, visited, next_jump_array)
+        back_to_start, visited, next_jump_array = process_next_moves(next_moves, visited, next_jump_array)
         return jump_count if back_to_start
       end
 
@@ -24,12 +28,12 @@ class ArrayJumping
       visited.push(false)
     end
     array_length = array.length
-    max_index = array.index(array.max)
-    visited[max_index] = true
+    @max_index = array.index(array.max)
+    visited[@max_index] = true
     jump_array = [array.index(array.max)]
     jump_count = 1
 
-    [visited, array_length, max_index, jump_array, jump_count]
+    [visited, array_length, jump_array, jump_count]
   end
 
   def update_variables(jump_count, next_jump_array)
@@ -48,9 +52,9 @@ class ArrayJumping
     next_moves
   end
 
-  def process_next_moves(next_moves, max_index, visited, next_jump_array)
+  def process_next_moves(next_moves, visited, next_jump_array)
     next_moves.each do |n|
-      return true if n == max_index
+      return true if n == @max_index
 
       visited, next_jump_array = load_next_jump_array(visited, next_jump_array, n)
     end

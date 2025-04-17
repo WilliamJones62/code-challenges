@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 require 'hard/counting_anagrams'
+
+# A string parameter contains lowercase words separated by single blanks.
+# The program returns an integer of the number of anagrams in the string.
+
 describe CountingAnagrams do
   let(:ca) { described_class.new }
 
