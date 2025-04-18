@@ -24,9 +24,10 @@ class ArrayJumping
 
   def initialize_variables(array)
     visited = []
-    (0..array.length - 1).each do |_i|
-      visited.push(false)
+    (1..array.length).each do |_|
+      visited << false
     end
+
     array_length = array.length
     @max_index = array.index(array.max)
     visited[@max_index] = true
