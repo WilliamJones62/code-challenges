@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This class contains hamiltonian path logic
+# This class contains intersecting lines logic
 class IntersectingLines
   def intersecting_lines(array)
     lines = create_lines(array)
