@@ -24,7 +24,7 @@ class ArrayJumping
 
   def initialize_variables(array)
     visited = []
-    (1..array.length).each do |_|
+    array.length.times do
       visited << false
     end
 
