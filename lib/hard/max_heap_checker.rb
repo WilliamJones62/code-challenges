@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This class contains matching couples logic
+# This class contains max heap logic
 class MaxHeapChecker
   def max_heap_checker(array)
     greater_than_parent, parents = initialize_variables
