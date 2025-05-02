@@ -8,7 +8,7 @@ class OptimalAssignments
     result = HungarianAlgorithm.new(formatted_array).process
     string = ''
     result.each do |integer_array|
-      string += "(#{integer_array[0]}-#{integer_array[1]})"
+      string += "(#{integer_array[0] + 1}-#{integer_array[1] + 1})"
     end
     string
   end
