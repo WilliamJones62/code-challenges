@@ -7,7 +7,8 @@ require 'hard/hamiltonian_path'
 #  (A-B,C-D,...) where each edge is bidirectional. The last string is a set of nodes in the
 #  form (X,Y,Z,...) and the program determines if the set of nodes forms a Hamiltonian
 #  path on the graph which means that every node in the graph is visited only
-#  once in the order given.
+#  once in the order given. If it is a hamiltonian path return 'yes' else return the last
+#  valid node on the path.
 
 describe HamiltonianPath do
   let(:hp) { described_class.new }
