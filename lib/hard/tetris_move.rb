@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This class contains step walking logic
+# This class contains tetris nove logic
 class TetrisMove
   SHAPES = { 'I' => [2, 4, [[true], [true], [true], [true]]],
              'J' => [4, 3, [[true, false], [true, false], [true, true]]],

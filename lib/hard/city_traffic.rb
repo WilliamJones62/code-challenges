@@ -2,104 +2,84 @@
 
 require 'json'
 
-# This class contains node logic
-class Node
-  attr_reader :key, :edges
-
-  def initialize(key)
-    @key = key
-    @edges = {}
-  end
-
-  def add_edge(key, weight = 1)
-    @edges[key] = weight
-  end
-end
-
-# This class contains Graph logic
-class Graph
-  def initialize
-    @nodes = {}
-  end
-
-  def nodes_each
-    @nodes.each_key { |key, node| yield [key, node] }
-  end
-
-  def add_node(key)
-    @nodes[key] = Node.new(key)
-    node(key)
-  end
-
-  def node(key)
-    @nodes[key]
-  end
-
-  def max_traffic_from_one_road(key)
-    city = node(key)
-
-    edge_traffic = []
-    city.edges.each_key do |edge_key|
-      edge_traffic << sum_traffic_from_all_roads(edge_key, [key])
-    end
-
-    edge_traffic.empty? ? 0 : edge_traffic.max
-  end
-
-  def sum_traffic_from_all_roads(key, visited = [])
-    city = node(key)
-
-    visited << key
-
-    edge_traffic = []
-    city.edges.each_key do |edge_key|
-      edge_traffic << sum_traffic_from_all_roads(edge_key, visited) unless visited.include?(edge_key)
-    end
-
-    edge_traffic.empty? ? key : edge_traffic.sum + key
-  end
-end
-
 # This class contains city traffic logic
 class CityTraffic
   def city_traffic(array)
-    graph = Graph.new
-    graph = load_graph(array, graph)
-
-    traffic_results(graph)
+    create_variables
+    convert_strings(array)
+    process_cities
   end
 
-  def load_graph(array, graph)
-    array.each do |city|
-      city_name, roads = process_city_string(city)
+  def create_variables
+    @cities = {}
+    @return_hash = {}
+  end
 
-      city_node = graph.add_node(city_name)
+  def convert_strings(array)
+    array.each do |city_info|
+      city_array = city_info.split(':')
+      road_tos = JSON.parse(city_array[1])
+      @cities[city_array[0].to_i] = road_tos
+    end
+  end
 
-      roads.each do |road|
-        city_node.add_edge(road)
+  def process_cities
+    @cities.each do |city|
+      @visited_cities = []
+      @visited_cities << city[0]
+      @neighboring_cities = city[1]
+      @routes = []
+      create_routes
+      @return_hash[city[0]] = max_routes
+    end
+    create_return_string
+  end
+
+  def create_return_string
+    sorted_hash_keys = @return_hash.keys.sort
+    sorted_hash_keys.each do |k|
+      @return_string = "#{@return_string}#{k}:#{@return_hash[k]},"
+    end
+    @return_string.chop
+  end
+
+  def create_routes
+    @neighboring_cities.each do |neighbor|
+      @routes << [neighbor, neighbor]
+      @visited_cities << neighbor
+    end
+  end
+
+  def max_routes
+    @routes.each do |route|
+      create_branches(route)
+      follow_branches(route) until @branches.empty?
+    end
+    @routes.max_by(&:first).first
+  end
+
+  def create_branches(route)
+    @branches = []
+    @cities[route[1]].each do |neighbor|
+      next if @visited_cities.include?(neighbor)
+
+      route[0] += neighbor
+      @visited_cities << neighbor
+      @branches << neighbor
+    end
+  end
+
+  def follow_branches(route)
+    next_branches = []
+    @branches.each do |branch|
+      @cities[branch].each do |neighbor|
+        next if @visited_cities.include?(neighbor)
+
+        route[0] += neighbor
+        @visited_cities << neighbor
+        next_branches << neighbor
       end
     end
-
-    graph
-  end
-
-  def process_city_string(city)
-    city_name, roads = city.split(':')
-    city_name = city_name.to_i
-    roads = JSON.parse(roads)
-    [city_name, roads]
-  end
-
-  def traffic_results(graph)
-    traffic_data = []
-
-    graph.nodes_each do |city_name, _node|
-      max_traffic = graph.max_traffic_from_one_road(city_name)
-      traffic_data << { city_name: city_name, max_traffic: max_traffic }
-    end
-
-    traffic_data.sort_by! { |city| city[:city_name] }
-
-    traffic_data.map { |city| "#{city[:city_name]}:#{city[:max_traffic]}" }.join(',')
+    @branches = next_branches
   end
 end
