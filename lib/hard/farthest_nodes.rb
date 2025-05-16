@@ -1,72 +1,66 @@
 # frozen_string_literal: true
 
-require 'set'
 # This class contains farthest nodes logic
 class FarthestNodes
   def farthest_nodes(array)
-    nodes = create_node_keys(array)
-    nodes = load_node_edges(array, nodes)
-    find_longest_path(nodes)
+    initialize_variables
+    create_node_connections(array)
+    find_longest_path
   end
 
-  def create_node_keys(array)
-    node_keys = Set.new(array.join('-').split('-'))
+  def initialize_variables
+    @longest_path = 0
+    @visited_nodes = []
+    @node_connections = {}
+  end
 
-    nodes = {}
-    node_keys.each do |key|
-      nodes[key] = Node.new(key)
+  def create_node_connections(array)
+    array.each do |edge|
+      edge_nodes = edge.split('-')
+      load_node_connections(edge_nodes[0], edge_nodes[1])
+      load_node_connections(edge_nodes[1], edge_nodes[0])
     end
-    nodes
   end
 
-  def load_node_edges(array, nodes)
-    array.each do |connection|
-      node_a, node_b = connection.split('-')
-      nodes[node_a].add_edge(nodes[node_b])
-      nodes[node_b].add_edge(nodes[node_a])
+  def load_node_connections(node1, node2)
+    if @node_connections.key?(node1)
+      @node_connections[node1] << node2 unless @node_connections[node1].include?(node2)
+    else
+      @node_connections[node1] = [node2]
     end
-    nodes
   end
 
-  def find_longest_path(nodes)
-    longest_path = 0
-    nodes.each_value do |node|
-      path = node.get_farthest_path
-      longest_path = path.length if path.length > longest_path
+  def find_longest_path
+    @node_connections.each do |key, nodes|
+      next unless nodes.length == 1
+
+      @visited_nodes << key
+      @path_length = 0
+      walk_path(nodes)
+      @longest_path = @path_length if @path_length > @longest_path
     end
-
-    longest_path - 1
-  end
-end
-
-# This class contains node logic
-class Node
-  attr_reader :key, :edges
-
-  def initialize(key)
-    @key = key
-    @edges = []
+    @longest_path
   end
 
-  def add_edge(node)
-    @edges.push(node)
-  end
-
-  def get_farthest_path(visited = [])
-    return visited if visited.include?(@key)
-
-    visited = visited.dup
-    visited << @key
-
-    self_and_children = []
-
-    @edges.each do |edge|
-      child = edge.get_farthest_path(visited)
-      self_and_children << child
+  def walk_path(nodes)
+    until nodes.empty?
+      @next_nodes = []
+      nodes.each do |node|
+        @visited_nodes << node
+        node_array = @node_connections[node]
+        load_next_nodes(node_array)
+      end
+      @path_length += 1
+      nodes = @next_nodes
     end
+  end
 
-    return visited if self_and_children.empty?
-
-    self_and_children.sort_by(&:length).reverse[0]
+  def load_next_nodes(node_array)
+    node_array.each do |na|
+      unless @visited_nodes.include?(na)
+        @next_nodes << na
+        @visited_nodes << na
+      end
+    end
   end
 end
