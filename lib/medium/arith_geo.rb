@@ -11,7 +11,7 @@ class ArithGeo
 
   def test_array(arr, operator)
     constant = return_value(arr[1], arr[0], operator)
-    (2..(arr.length - 1)).each do |i|
+    (2...arr.length).each do |i|
       difference = return_value(arr[i], arr[i - 1], operator)
       return false if difference != constant
     end
