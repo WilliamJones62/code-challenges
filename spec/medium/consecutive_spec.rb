@@ -7,7 +7,7 @@ describe Consecutive do
   let(:co) { described_class.new }
 
   describe 'consecutive' do
-    it 'returns 4 for [4, 8, 6]' do
+    it 'returns 2 for [4, 8, 6]' do
       expect(co.consecutive([4, 8, 6])).to eq(2)
     end
 

@@ -11,7 +11,7 @@ class ArrayAddition
 
   def generate_sub_arrs(arr)
     sub_arrs = []
-    (1...(arr.size + 1)).each do |i|
+    (1..arr.size).each do |i|
       comb_arr = arr.combination(i)
       sub_arrs.push(comb_arr)
     end
