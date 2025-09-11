@@ -36,7 +36,10 @@ describe CombinationSum do
     it "returns [[2,2,3],[7]] for [2,3,6,7], 7" do
         expect(cs.combination_sum([2,3,6,7], 7)).to eq([[2,2,3],[7]])
     end
-    it "returns [[2,2,2,2],[2,3,3],[3,5]] for [2,3,5], 8" do
+    it "returns [[2,2,3],[7]] for [10,2,3,6,7], 7" do
+      expect(cs.combination_sum([10,2,3,6,7], 7)).to eq([[2,2,3],[7]])
+  end
+  it "returns [[2,2,2,2],[2,3,3],[3,5]] for [2,3,5], 8" do
         expect(cs.combination_sum([2,3,5], 8)).to eq([[2,2,2,2],[2,3,3],[3,5]])
     end
     it "returns [] for [2], 1" do
