@@ -23,6 +23,12 @@ describe Subsets do
     it "returns [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]] for [1,2,3]" do
         expect(s.subsets([1,2,3])).to eq([[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]])
     end
+    it "returns [[], [3], [3, 2], [3, 2, 1], [3, 1], [2], [2, 1], [1]] for [1,2,3]" do
+        expect(s.subsets([3,2,1])).to eq([[], [3], [3, 2], [3, 2, 1], [3, 1], [2], [2, 1], [1]])
+    end
+    it "returns  [[], [[]], [[], {}], [[], {}, true], [[], true], [{}], [{}, true], [true]] for [[],{},true]" do
+        expect(s.subsets([[],{},true])).to eq( [[], [[]], [[], {}], [[], {}, true], [[], true], [{}], [{}, true], [true]])
+    end
     it "returns [[],[0]] for [0]" do
         expect(s.subsets([0])).to eq([[],[0]])
     end
