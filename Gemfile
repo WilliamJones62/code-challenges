@@ -2,9 +2,9 @@
 
 source 'https://rubygems.org'
 
-ruby '3.0.3'
+ruby '3.4.4'
 
-gem 'hungarian_algorithm'
+# gem 'hungarian_algorithm'
 group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
